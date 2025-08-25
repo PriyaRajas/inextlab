@@ -30,7 +30,8 @@ import {
   Container,
   Grid,
   Fade,
-  Zoom
+  Zoom,
+  ThemeProvider
 } from '@mui/material';
 import {
   Send,
@@ -88,6 +89,8 @@ const generateAIResponse = (message, uploadedFiles = []) => {
 };
 
 const AIChat = () => {
+
+
   const [messages, setMessages] = useState([
     {
       id: 1,
@@ -157,8 +160,7 @@ const AIChat = () => {
     const processingTime = Math.random() * 2000 + 2000;
     
     setTimeout(() => {
-      setIsTyping(false);
-      
+      setIsTyping(false);      
       const aiResponse = {
         id: Date.now() + 1,
         text: generateAIResponse(inputText, uploadedFiles.length > 0 ? uploadedFiles : []),
@@ -266,6 +268,7 @@ const AIChat = () => {
   };
 
   return (
+ 
     <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column', bgcolor: 'grey.50' ,overflow:"auto"}}>
       {/* Header */}
       <AppBar position="static" elevation={1} sx={{ bgcolor: 'white', color: 'text.primary' }}>
@@ -288,7 +291,7 @@ const AIChat = () => {
       {/* Search and Filter Bar */}
       <Paper elevation={0} sx={{ p: 2, borderBottom: 1, borderColor: 'divider' }}>
         <Grid container spacing={2} alignItems="center">
-          <Grid item xs={12} md={8}>
+          <Grid  size={{xs:12, md:3}}>
             <TextField
               fullWidth
               size="small"
@@ -311,7 +314,7 @@ const AIChat = () => {
               }}
             />
           </Grid>
-          <Grid item xs={12} md={4}>
+          <Grid  size={{xs:12, md:3}}>
             <FormControl fullWidth size="small">
               <InputLabel>Filter Messages</InputLabel>
               <Select
@@ -557,7 +560,6 @@ const AIChat = () => {
       {/* Message Input */}
       <Paper elevation={0} sx={{ p: 2, borderTop: 1, borderColor: 'divider' }}>
         <Box sx={{ display: 'flex', alignItems: 'flex-end', gap: 1 }}>
-          {/* File Upload Button */}
           <Tooltip title="Upload files">
             <IconButton
               color="primary"
@@ -604,8 +606,12 @@ const AIChat = () => {
               </Button>
             </span>
           </Tooltip>
+
         </Box>
 
+         <Typography variant="caption" color="text.secondary" sx={{ display: 'block', textAlign: 'center', mt: 1 }}>
+          Press Enter to send & Drag & drop files to upload
+        </Typography>
        
       </Paper>
 
@@ -654,6 +660,7 @@ const AIChat = () => {
         </DialogContent>
       </Dialog>
     </Box>
+ 
   );
 };
 
